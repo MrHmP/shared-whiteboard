@@ -1,4 +1,5 @@
 const socketService = require('./services/websocketService');
+const state = require('./state');
 
 try {
     socketService.initiateSocketConnection();
