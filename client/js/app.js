@@ -95,13 +95,13 @@
 	var plots = [];
 
 	function draw(e) {
-		e.preventDefault(); // prevent continuous touch event process e.g. scrolling!
+		e.preventDefault();
 		if (!isActive) return;
 
 		var x = isTouchSupported ? (e.targetTouches[0].pageX - canvas.offsetLeft) : (e.offsetX || e.layerX - canvas.offsetLeft);
 		var y = isTouchSupported ? (e.targetTouches[0].pageY - canvas.offsetTop) : (e.offsetY || e.layerY - canvas.offsetTop);
 
-		plots.push({ x: (x << 0), y: (y << 0) }); // round numbers for touch screens
+		plots.push({ x: (x << 0), y: (y << 0) });
 
 		drawOnCanvas(color, plots);
 	}
