@@ -34,6 +34,15 @@
 
 	var channel = 'draw';
 
+	const ws = new WebSocket('ws://localhost:9898/');
+	ws.onopen = function () {
+		console.log('WebSocket Client Connected');
+		ws.send('Hi this is web client.');
+	};
+	ws.onmessage = function (e) {
+		console.log("Received: '" + e.data + "'");
+	};
+
 	// var pubnub = PUBNUB.init({
 	// 	publish_key     : 'pub-c-156a6d5f-22bd-4a13-848d-b5b4d4b36695',
 	// 	subscribe_key   : 'sub-c-f762fb78-2724-11e4-a4df-02ee2ddab7fe',
@@ -57,10 +66,7 @@
 
 	function publish(data) {
 		console.log(`Channel : ${channel} , message: ${JSON.stringify(data)}`);
-		// pubnub.publish({
-		// 	channel: channel,
-		// 	message: data
-		// });
+		ws.send(`Channel : ${channel} , message: ${JSON.stringify(data)}`);
 	}
 
 	/* Draw on canvas */

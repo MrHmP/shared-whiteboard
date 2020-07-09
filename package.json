@@ -1,0 +1,25 @@
+{
+  "name": "shared-whiteboard",
+  "version": "0.0.1",
+  "description": "Shared whiteboard",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-client": "cd client && http-server",
+    "start-server": "node server/server.js",
+    "start": "npm run start-server & npm run start-client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrHmP/shared-whiteboard.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MrHmP/shared-whiteboard/issues"
+  },
+  "homepage": "https://github.com/MrHmP/shared-whiteboard#readme",
+  "dependencies": {
+    "websocket": "^1.0.31"
+  }
+}
