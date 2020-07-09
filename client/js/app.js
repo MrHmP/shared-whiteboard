@@ -30,39 +30,17 @@
 	canvas.addEventListener(moveEvent, draw, false);
 	canvas.addEventListener(upEvent, endDraw, false);
 
-	/* PubNub */
-
-	var channel = 'draw';
+	// Web socket connection initialiser
 
 	const ws = new WebSocket('ws://localhost:9898/');
 	ws.onopen = function () {
 		console.log('WebSocket Client Connected');
 		ws.send('Hi this is web client.');
 	};
+	
 	ws.onmessage = function (e) {
 		console.log("Received: '" + e.data + "'");
 	};
-
-	// var pubnub = PUBNUB.init({
-	// 	publish_key     : 'pub-c-156a6d5f-22bd-4a13-848d-b5b4d4b36695',
-	// 	subscribe_key   : 'sub-c-f762fb78-2724-11e4-a4df-02ee2ddab7fe',
-	// 	leave_on_unload : true,
-	// 	ssl		: document.location.protocol === "https:"
-	// });
-
-	// pubnub.subscribe({
-	// 	channel: channel,
-	// 	callback: drawFromStream,
-	// 	presence: function(m){
-	// 		if(m.occupancy > 1){
-	// 			document.getElementById('unit').textContent = 'doodlers';
-	// 		}
-	// 		document.getElementById('occupancy').textContent = m.occupancy;
-	// 		var p = document.getElementById('occupancy').parentNode;
-	// 		p.classList.add('anim');
-	// 		p.addEventListener('transitionend', function(){p.classList.remove('anim');}, false);
-	// 	}
-	// });
 
 	function publish(data) {
 		console.log(`Channel : ${channel} , message: ${JSON.stringify(data)}`);

@@ -10,12 +10,13 @@
 	<meta name="author" content="himanshupandey.com">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/modal.css">
 </head>
 
 <body>
 	<header>
 		<div>
-			<h1>Shared Whiteboard</h1>
+			<h1 id="h1BoardName">Shared Whiteboard</h1>
 		</div>
 		<div class="bubble">
 			<span id="occupancy">0</span>
@@ -32,12 +33,25 @@
 		</section>
 	</section>
 
+	<section id="modal-popup">
+		<div class="modal">
+			<div class="modal-content">
+				<span class="close-button">&times;</span>
+				<h1 id="modal-heading"></h1>
+				<input type="text" id="modal-textbox" />
+				<button id="modal-action-button"></button>
+			</div>
+		</div>
+	</section>
+
 	<script>
 		// For history() demo, please view history.html.
 		var drawHistory = false;
 	</script>
 
+	<script src="js/utils.js"></script>
 	<script src="js/app.js"></script>
+	<script src="js/modal.js"></script>
 
 </body>
 
