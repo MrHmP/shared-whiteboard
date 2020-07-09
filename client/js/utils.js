@@ -4,3 +4,7 @@ function uuidv4() {
         return v.toString(16);
     });
 }  
+
+function getBoardIdFromURL(param) {
+    return new URLSearchParams(window.location.search).get(param);
+}
