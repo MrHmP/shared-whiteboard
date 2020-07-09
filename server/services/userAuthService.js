@@ -1,6 +1,6 @@
 let loggedInUsers = [];
 
-let userLogIn = function (userName) {
+exports.userLogIn = function (userName) {
     let loggedInUser = loggedInUsers.filter(x => x.name === userName);
     if (!loggedInUser) {
         loggedInUser = {
@@ -17,6 +17,6 @@ let userLogIn = function (userName) {
     return loggedInUser;
 }
 
-let userLogOut = function (userName) {
+exports.userLogOut = function (userName) {
     loggedInUser = loggedInUser.filter(x => x.name !== userName);
 }
