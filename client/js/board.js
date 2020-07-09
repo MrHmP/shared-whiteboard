@@ -2,6 +2,7 @@
 function showBoard(board, toggleBoard) {
     document.getElementById("h1BoardName").innerHTML = board.name;
     window.history.pushState("", board.name, `/?bid=${board.id}`);
+    localStorage.setItem('board', JSON.stringify(board));
     if (toggleBoard)
         toggleModal();
 }
@@ -17,7 +18,6 @@ function showBoard(board, toggleBoard) {
                     const boards = JSON.parse(localStorage.getItem('boards') || '[]');
                     const board = { 'name': boardName, 'id': uuid };
                     boards.push(board);
-                    localStorage.setItem('boards', JSON.stringify(boards));
                     ws.send(getMessageForServer(MESSAGE_TYPE.BOARD_ADDED, board));
                     showBoard(board, true);
                 }

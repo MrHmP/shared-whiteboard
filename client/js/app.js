@@ -30,24 +30,6 @@
 	canvas.addEventListener(moveEvent, draw, false);
 	canvas.addEventListener(upEvent, endDraw, false);
 
-	// Web socket connection initialiser
-	ws.onopen = function () {
-		console.log('WebSocket Client Connected');
-		ws.send(getMessageForServer(MESSAGE_TYPE.PING, 'Hi this is web client.'));
-	};
-
-	ws.onmessage = function (e) {
-		let receivedData = JSON.parse(e.data);
-		if (receivedData.type === MESSAGE_TYPE.BOARD_GET) {
-			showBoard(receivedData, false);
-		}
-	};
-
-	function publish(data) {
-		console.log(`message: ${JSON.stringify(data)}`);
-		ws.send(getMessageForServer(MESSAGE_TYPE.PING, `message: ${JSON.stringify(data)}`));
-	}
-
 	/* Draw on canvas */
 
 	function drawOnCanvas(color, plots) {

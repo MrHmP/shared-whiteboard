@@ -1,23 +1,32 @@
 const e = require("express");
 
-const boards = [];
+const boards = {};
+const locations = {};
 
 exports.addBoard = function (board) {
-    const oldBoard = boards.filter(b => b.id === board.id);
+    const oldBoard = boards[board.id];
 
-    if (oldBoard && oldBoard.length > 0) {
+    if (oldBoard) {
         console.log(`Can't add board, this ${oldBoard.id} already exists`);
     } else {
-        boards.push(board);
+        boards[board.id] = board;
+    }
+}
+
+exports.addDrawings = function (board, location) {
+    const oldLocations = locations[board];
+
+    if (oldLocations) {
+        locations[board].drawings.push(location);
+    } else {
+        locations[board] = { drawings: [location] };
     }
 }
 
 exports.getBoard = function (id) {
-    const oldBoard = boards.filter(b => b.id === id);
+    return boards[id];
+}
 
-    if ((oldBoard || []).length > 0) {
-        return oldBoard[0];
-    } else {
-        return null;
-    }
+exports.getDrawings = function (id) {
+    return locations[id];
 }

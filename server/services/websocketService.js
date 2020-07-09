@@ -2,6 +2,7 @@ const http = require('http');
 const WebSocketServer = require('websocket').server;
 const newBoardProcessor = require('./../message-consumers/newBoard');
 const getBoardProcessor = require('./../message-consumers/getBoard');
+const drawProcessor = require('./../message-consumers/draw');
 
 exports.initiateSocketConnection = function () {
     const server = http.createServer();
@@ -20,6 +21,8 @@ exports.initiateSocketConnection = function () {
             const messageType = incomingData.type;
             switch (messageType) {
                 case 'DRAW':
+                    drawProcessor.addDrawing(incomingData.board, incomingData.drawing);
+                    connection.sendUTF(JSON.stringify({ 'Status': 'OK', 'type': 'DRAW' }));
                     break;
                 case 'BOARD_GET':
                     let fetchedBoard = getBoardProcessor.process(incomingData) || {};
@@ -28,8 +31,7 @@ exports.initiateSocketConnection = function () {
                     break;
                 case 'BOARD_ADDED':
                     newBoardProcessor.process(incomingData);
-                    let ok = { 'Status': 'OK', 'type': 'BOARD_ADDED' };
-                    connection.sendUTF(JSON.stringify(ok));
+                    connection.sendUTF(JSON.stringify({ 'Status': 'OK', 'type': 'BOARD_ADDED' }));
                     break;
                 default:
                     break;
