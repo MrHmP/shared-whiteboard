@@ -7,8 +7,15 @@ ws.onopen = function () {
 ws.onmessage = function (e) {
     let receivedData = JSON.parse(e.data);
     appLog(`Got message of type ${receivedData.type}`);
-    if (receivedData.type === MESSAGE_TYPE.BOARD_GET) {
-        showBoard(receivedData, false);
+    switch (receivedData.type) {
+        case MESSAGE_TYPE.BOARD_GET:
+            showBoard(receivedData, false);
+            break;
+        case MESSAGE_TYPE.DRAW:
+            drawFromStream(receivedData.drawing);
+            break;
+        default:
+            break;
     }
 };
 
