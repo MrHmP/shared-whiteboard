@@ -3,10 +3,13 @@ const WebSocketServer = require('websocket').server;
 const newBoardProcessor = require('./../message-consumers/newBoard');
 const getBoardProcessor = require('./../message-consumers/getBoard');
 const drawProcessor = require('./../message-consumers/draw');
-const connections = {};
+const connections = {}; //{ 'boardId': [connection1,connection2] }
 const logger = require('./../services/loggerService');
 
 function addConnectionForBoard(boardId, connection) {
+    logger.appLog(`New connection added for board ${boardId} ✅`);
+    connection.sharedBoardId = logger.getRandomId();
+    connection.boardId = boardId;
     if (connections[boardId]) {
         connections[boardId].push(connection);
     } else {
@@ -35,7 +38,7 @@ exports.initiateSocketConnection = function () {
                     try {
                         logger.appLog(`Sending data to ${connections[incomingData.board.id].length} locations`);
                         connections[incomingData.board.id].forEach(con => {
-                            logger.appLog(`Drawing for ${con} ✏️`);
+                            logger.appLog(`Sending draw request✏️`);
                             con.sendUTF(JSON.stringify(incomingData));
                         });
                     } catch (ex) {
@@ -61,9 +64,8 @@ exports.initiateSocketConnection = function () {
         });
 
         connection.on('close', function (reasonCode, description) {
-            logger.appLog(`Client has disconnected. 
-            \n reasonCode ${reasonCode}
-            \ndescription: ${description}`);
+            connections[this.boardId] = connections[this.boardId].filter(c => c.sharedBoardId !== this.sharedBoardId);
+            logger.appLog(`Client has disconnected because ${description} ❌`);
         });
     });
 
