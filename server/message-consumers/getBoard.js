@@ -1,10 +1,11 @@
 const state = require('../state');
+const logger = require('./../services/loggerService');
 
 exports.process = function (board) {
-    console.log(`Getting board ${JSON.stringify(board)} from state`);
+    logger.appLog(`Getting board ${JSON.stringify(board)} from state`);
     const boardFromState = state.getBoard(board.bid);
     if (boardFromState != null) {
-        console.log(`Got non null board from state 👍`);
+        logger.appLog(`Got non null board from state 👍`);
     }
     return boardFromState;
 }

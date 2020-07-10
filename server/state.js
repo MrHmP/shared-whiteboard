@@ -1,12 +1,11 @@
-const e = require("express");
-
+const logger = require('./services/loggerService');
 const boards = {};
 
 exports.addBoard = function (board) {
     const oldBoard = boards[board.id];
 
     if (oldBoard) {
-        console.log(`Can't add board, this ${oldBoard.id} already exists`);
+        logger.appLog(`Can't add board, this ${oldBoard.id} already exists`);
     } else {
         boards[board.id] = board;
     }

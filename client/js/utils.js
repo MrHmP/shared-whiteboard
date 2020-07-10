@@ -27,7 +27,7 @@ function getMessageForServer(type, data) {
         message['type'] = type;
         message.data = data;
     }
-    console.log(`Sending message from sever of type ${message.type}`);
+    appLog(`Sending message from sever of type ${message.type}`);
     return JSON.stringify(message);
 }
 
@@ -43,3 +43,7 @@ const delay = (function () {
         timer = setTimeout(callback, ms);
     };
 })();
+
+function appLog(msg) {
+    console.log(`${new Date()} : ${msg}`);
+}

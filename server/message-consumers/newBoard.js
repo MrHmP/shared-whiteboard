@@ -1,7 +1,8 @@
 const state = require('./../state');
+const logger = require('./../services/loggerService');
 
 exports.process = function (board) {
-    console.log(`Adding board ${JSON.stringify(board)} to state`);
+    logger.appLog(`Adding board ${JSON.stringify(board)} to state`);
     state.addBoard(board);
-    console.log(`Board added to state 👍`);
+    logger.appLog(`Board added to state 👍`);
 }

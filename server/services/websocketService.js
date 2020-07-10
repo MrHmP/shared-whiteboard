@@ -4,6 +4,7 @@ const newBoardProcessor = require('./../message-consumers/newBoard');
 const getBoardProcessor = require('./../message-consumers/getBoard');
 const drawProcessor = require('./../message-consumers/draw');
 const connections = {};
+const logger = require('./../services/loggerService');
 
 function addConnectionForBoard(boardId, connection) {
     if (connections[boardId]) {
@@ -25,20 +26,20 @@ exports.initiateSocketConnection = function () {
         const connection = request.accept(null, request.origin);
 
         connection.on('message', function (message) {
-            console.log('Message recieved is:', message.utf8Data);
+            logger.appLog('Message recieved is:', message.utf8Data);
             const incomingData = JSON.parse(message.utf8Data);
             const messageType = incomingData.type;
             switch (messageType) {
                 case 'DRAW':
                     drawProcessor.addDrawing(incomingData.board, incomingData.drawing);
                     try {
-                        console.log(`Sending data to ${connections[incomingData.board.id].length} locations`);
+                        logger.appLog(`Sending data to ${connections[incomingData.board.id].length} locations`);
                         connections[incomingData.board.id].forEach(con => {
-                            console.log(`Drawing for ${con} ✏️`);
+                            logger.appLog(`Drawing for ${con} ✏️`);
                             con.sendUTF(JSON.stringify(incomingData));
                         });
                     } catch (ex) {
-                        console.error(ex);
+                        logger.appLog(ex);
                     }
                     break;
                 case 'BOARD_GET':
@@ -60,7 +61,7 @@ exports.initiateSocketConnection = function () {
         });
 
         connection.on('close', function (reasonCode, description) {
-            console.log(`Client has disconnected. 
+            logger.appLog(`Client has disconnected. 
             \n reasonCode ${reasonCode}
             \ndescription: ${description}`);
         });
