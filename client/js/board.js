@@ -3,6 +3,9 @@ function showBoard(board, toggleBoard) {
     document.getElementById("h1BoardName").innerHTML = board.name;
     window.history.pushState("", board.name, `/?bid=${board.id}`);
     localStorage.setItem('board', JSON.stringify(board));
+    (board.drawings || []).forEach(message => {
+        drawFromStream(message);
+    });
     if (toggleBoard)
         toggleModal();
 }
