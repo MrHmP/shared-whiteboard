@@ -27,7 +27,7 @@ function getMessageForServer(type, data) {
         message['type'] = type;
         message.data = data;
     }
-    console.log(message);
+    console.log(`Sending message from sever of type ${message.type}`);
     return JSON.stringify(message);
 }
 
@@ -36,10 +36,10 @@ function isJson(obj) {
     return ['boolean', 'number', 'string', 'symbol', 'function'].indexOf(t) == -1;
 }
 
-const delay = ( function() {
+const delay = (function () {
     var timer = 0;
-    return function(callback, ms) {
-        clearTimeout (timer);
+    return function (callback, ms) {
+        clearTimeout(timer);
         timer = setTimeout(callback, ms);
     };
 })();

@@ -6,12 +6,17 @@ ws.onopen = function () {
 
 ws.onmessage = function (e) {
     let receivedData = JSON.parse(e.data);
+    console.log(`Got message of type ${receivedData.type}`);
     if (receivedData.type === MESSAGE_TYPE.BOARD_GET) {
         showBoard(receivedData, false);
     }
 };
 
 function publish(data) {
-    console.log(`message: ${JSON.stringify(data)}`);
-    ws.send(getMessageForServer(MESSAGE_TYPE.DRAW, { drawing: data, board: JSON.parse(localStorage.getItem('board')) }));
+    ws.send(getMessageForServer(MESSAGE_TYPE.DRAW,
+        {
+            drawing: data,
+            board: JSON.parse(localStorage.getItem('board'))
+        })
+    );
 }

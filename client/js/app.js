@@ -73,6 +73,7 @@
 		isActive = false;
 
 		publish({
+			id: uuidv4(),
 			color: color,
 			plots: plots
 		});

@@ -3,6 +3,15 @@ const WebSocketServer = require('websocket').server;
 const newBoardProcessor = require('./../message-consumers/newBoard');
 const getBoardProcessor = require('./../message-consumers/getBoard');
 const drawProcessor = require('./../message-consumers/draw');
+const connections = {};
+
+function addConnectionForBoard(boardId, connection) {
+    if (connections[boardId]) {
+        connections[boardId].push(connection);
+    } else {
+        connections[boardId] = [connection];
+    }
+}
 
 exports.initiateSocketConnection = function () {
     const server = http.createServer();
@@ -22,14 +31,26 @@ exports.initiateSocketConnection = function () {
             switch (messageType) {
                 case 'DRAW':
                     drawProcessor.addDrawing(incomingData.board, incomingData.drawing);
-                    connection.sendUTF(JSON.stringify({ 'Status': 'OK', 'type': 'DRAW' }));
+                    try {
+                        console.log(`Sending data to ${connections[incomingData.board.id].length} locations`);
+                        connections[incomingData.board.id].forEach(con => {
+                            console.log(`Drawing for ${con} ✏️`);
+                            con.sendUTF(JSON.stringify(incomingData));
+                        });
+                    } catch (ex) {
+                        console.error(ex);
+                    }
                     break;
                 case 'BOARD_GET':
-                    let fetchedBoard = getBoardProcessor.process(incomingData) || {};
-                    fetchedBoard["type"] = 'BOARD_GET';
+                    let fetchedBoard = getBoardProcessor.process(incomingData);
+                    if (fetchedBoard) {
+                        addConnectionForBoard(incomingData.bid, connection);
+                        fetchedBoard["type"] = 'BOARD_GET';
+                    }
                     connection.sendUTF(JSON.stringify(fetchedBoard));
                     break;
                 case 'BOARD_ADDED':
+                    addConnectionForBoard(incomingData.id, connection);
                     newBoardProcessor.process(incomingData);
                     connection.sendUTF(JSON.stringify({ 'Status': 'OK', 'type': 'BOARD_ADDED' }));
                     break;

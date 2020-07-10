@@ -26,6 +26,6 @@ function showBoard(board, toggleBoard) {
     } else {
         delay(function () {
             ws.send(getMessageForServer(MESSAGE_TYPE.BOARD_GET, { bid: boardId }));
-        }, 100);
+        }, 500);
     }
 })();
