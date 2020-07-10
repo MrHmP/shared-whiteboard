@@ -1,7 +1,6 @@
 const e = require("express");
 
 const boards = {};
-const locations = {};
 
 exports.addBoard = function (board) {
     const oldBoard = boards[board.id];
@@ -13,13 +12,11 @@ exports.addBoard = function (board) {
     }
 }
 
-exports.addDrawings = function (board, location) {
-    const oldLocations = locations[board];
-
-    if (oldLocations) {
-        locations[board].drawings.push(location);
+exports.addDrawings = function (boardId, location) {
+    if (boards[boardId].drawings) {
+        boards[boardId].drawings.push(location);
     } else {
-        locations[board] = { drawings: [location] };
+        boards[boardId]["drawings"] = [location];
     }
 }
 
