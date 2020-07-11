@@ -20,9 +20,7 @@
   },
   "homepage": "https://github.com/MrHmP/shared-whiteboard#readme",
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "then-request": "^6.0.2",
+    "http-server": "^0.12.3",
     "websocket": "^1.0.31"
   }
 }
