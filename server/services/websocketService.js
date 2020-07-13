@@ -34,7 +34,7 @@ exports.initiateSocketConnection = function () {
             const messageType = incomingData.type;
             switch (messageType) {
                 case 'DRAW':
-                    drawProcessor.addDrawing(incomingData.board, incomingData.drawing);
+                    drawProcessor.process(incomingData.board, incomingData.drawing);
                     try {
                         logger.appLog(`Sending data to ${connections[incomingData.board.id].length} locations`);
                         connections[incomingData.board.id].forEach(con => {

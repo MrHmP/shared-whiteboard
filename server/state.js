@@ -22,7 +22,3 @@ exports.addDrawings = function (boardId, location) {
 exports.getBoard = function (id) {
     return boards[id];
 }
-
-exports.getDrawings = function (id) {
-    return locations[id];
-}

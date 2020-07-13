@@ -4,10 +4,10 @@
   "description": "Shared whiteboard",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start-client": "cd client && http-server",
     "start-server": "node server/server.js",
-    "start": "npm run start-server & npm run start-client"
+    "start": "npm run start-server & npm run start-client",
+    "test": "jest --verbose"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,8 @@
     "http-server": "^0.12.3",
     "nanoid": "^3.1.10",
     "websocket": "^1.0.31"
+  },
+  "devDependencies": {
+    "jest": "24.1.0"
   }
 }
