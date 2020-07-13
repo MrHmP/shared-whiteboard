@@ -1,4 +1,4 @@
-const socketService = require('./services/websocketService');
+const socketService = require('./controllers/websocketServer');
 const logger = require('./services/loggerService');
 
 try {

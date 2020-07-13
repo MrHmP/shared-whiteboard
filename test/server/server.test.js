@@ -1,7 +1,7 @@
 const logger = require('./../../server/services/loggerService');
-const { initiateSocketConnection } = require('./../../server/services/websocketService');
+const { initiateSocketConnection } = require('./../../server/controllers/websocketServer');
 const server = require('./../../server/server');
-jest.mock('./../../server/services/websocketService');
+jest.mock('./../../server/controllers/websocketServer');
 
 beforeEach(() => {
     initiateSocketConnection.mockImplementation(() => {
