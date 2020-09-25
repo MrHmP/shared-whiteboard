@@ -4,5 +4,5 @@ const logger = require('./services/loggerService');
 try {
     socketService.initiateSocketConnection();
 } catch (exception) {
-    logger.appLog(`Exception caught while initiating socket connection: ${exception}`);
+    logger.appError(`Exception caught while initiating socket connection: ${exception}`);
 }

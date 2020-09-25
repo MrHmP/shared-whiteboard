@@ -12,7 +12,7 @@ ws.onmessage = function (e) {
             showBoard(receivedData, false);
             break;
         case MESSAGE_TYPE.DRAW:
-            drawFromStream(receivedData.drawing);
+            drawFromStream(receivedData);
             break;
         default:
             break;

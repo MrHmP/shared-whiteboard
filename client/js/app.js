@@ -78,7 +78,8 @@ function endDraw(e) {
 
 function drawFromStream(message) {
 	let currentBoard = JSON.parse(localStorage.getItem('board'));
-	const processedStreamIds = (currentBoard.processedStreams || []).filter(s => s === message.id);
+	const processedStreamIds = (currentBoard.processedStreams || []).
+		filter(s => s === message.id);
 	if (processedStreamIds.length == 0) {
 		if (!message || message.plots.length < 1) return;
 		drawOnCanvas(message.color, message.plots);
