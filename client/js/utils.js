@@ -4,7 +4,8 @@ const MESSAGE_TYPE = {
     DRAW: 'DRAW',
     BOARD_ADDED: 'BOARD_ADDED',
     PING: 'PING',
-    BOARD_GET: 'BOARD_GET'
+    BOARD_GET: 'BOARD_GET',
+    ATTENDEES_CHANGED: 'ATTENDEES_CHANGED'
 }
 
 function uuidv4() {

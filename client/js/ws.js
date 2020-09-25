@@ -14,6 +14,9 @@ ws.onmessage = function (e) {
         case MESSAGE_TYPE.DRAW:
             drawFromStream(receivedData);
             break;
+        case MESSAGE_TYPE.ATTENDEES_CHANGED:
+            changeCollaboratorsCount(receivedData);
+            break;
         default:
             break;
     }

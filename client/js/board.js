@@ -10,6 +10,10 @@ function showBoard(board, toggleBoard) {
         toggleModal();
 }
 
+function changeCollaboratorsCount(data) {
+    document.getElementById('occupancy').innerHTML = data.listeners;
+}
+
 (() => {
     const boardId = getBoardIdFromURL('bid');
     if (boardId == null) {
