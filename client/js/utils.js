@@ -15,7 +15,7 @@ function uuidv4() {
     });
 }
 
-function getBoardIdFromURL(param) {
+function getURLParam(param) {
     return new URLSearchParams(window.location.search).get(param);
 }
 

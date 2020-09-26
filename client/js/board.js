@@ -15,7 +15,7 @@ function changeCollaboratorsCount(data) {
 }
 
 (() => {
-    const boardId = getBoardIdFromURL('bid');
+    const boardId = getURLParam('bid');
     if (boardId == null) {
         openModalPopup('Create a new board', 'Add a new board name', 'Submit!', () => {
             if (document.getElementById('modal-heading').innerHTML === 'Create a new board') {
