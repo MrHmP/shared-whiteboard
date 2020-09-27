@@ -4,9 +4,7 @@
   "description": "Shared whiteboard",
   "main": "server.js",
   "scripts": {
-    "start-client": "cd client && http-server",
-    "start-server": "node server/server.js",
-    "start": "npm run start-server & npm run start-client",
+    "start": "node server/server.js",
     "test": "jest --verbose"
   },
   "repository": {

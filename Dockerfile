@@ -9,5 +9,4 @@ RUN npm install
 COPY . .
 
 EXPOSE 8080
-EXPOSE 9898
 CMD [ "npm","start" ]

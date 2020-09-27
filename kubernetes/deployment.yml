@@ -13,10 +13,13 @@ spec:
         app: sharedboard-app
     spec:
       containers:
-      - image: dockeronetwothree/sharedboard:latest
-        name: sharedboard
+      - image: dockeronetwothree/sharedboard-server:latest
+        name: sharedboard-server
+        ports:
+        - containerPort: 9898
+          protocol: TCP
+      - image: dockeronetwothree/sharedboard-ui:latest
+        name: sharedboard-ui
         ports:
         - containerPort: 8080
-          protocol: TCP
-        - containerPort: 9898
           protocol: TCP
