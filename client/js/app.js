@@ -70,8 +70,9 @@ function endDraw(e) {
 		id: streamId,
 		color: color,
 		plots: plots
+	}, () => {
+		setStreamAsDrawn(streamId);
 	});
-	setStreamAsDrawn(streamId);
 
 	plots = [];
 }

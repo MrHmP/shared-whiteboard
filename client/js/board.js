@@ -21,18 +21,14 @@ function changeCollaboratorsCount(data) {
             if (document.getElementById('modal-heading').innerHTML === 'Create a new board') {
                 const boardName = document.getElementById('modal-textbox').value;
                 if (boardName) {
-                    const uuid = uuidv4();
-                    const boards = JSON.parse(localStorage.getItem('boards') || '[]');
-                    const board = { 'name': boardName, 'id': uuid };
-                    boards.push(board);
-                    ws.send(getMessageForServer(MESSAGE_TYPE.BOARD_ADDED, board));
-                    showBoard(board, true);
+                    const board = { 'name': boardName, 'id': uuidv4() };
+                    sendDataOverSocket(getMessageForServer(MESSAGE_TYPE.BOARD_ADDED, board)
+                        , () => { showBoard(board, true) }
+                    );
                 }
             }
         })
     } else {
-        delay(function () {
-            ws.send(getMessageForServer(MESSAGE_TYPE.BOARD_GET, { bid: boardId }));
-        }, 500);
+        sendDataOverSocket(getMessageForServer(MESSAGE_TYPE.BOARD_GET, { bid: boardId }));
     }
 })();

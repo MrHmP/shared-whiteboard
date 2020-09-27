@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sharedboard-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sharedboard-app
+  template:
+    metadata:
+      labels:
+        app: sharedboard-app
+    spec:
+      containers:
+      - image: dockeronetwothree/sharedboard:latest
+        name: sharedboard
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        - containerPort: 9898
+          protocol: TCP

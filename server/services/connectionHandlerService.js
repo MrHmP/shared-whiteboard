@@ -26,7 +26,7 @@ function getConnectionForBoard(boardId) {
 }
 
 function notifyEveryoneOfAttendees(boardId) {
-    connections[boardId].forEach(con => {
+    (connections[boardId] || []).forEach(con => {
         con.sendUTF(JSON.stringify(
             {
                 "boardId": boardId,

@@ -1,8 +1,13 @@
 // Web socket connection initialiser
 ws.onopen = function () {
     appLog('WebSocket Client Connected');
-    ws.send(getMessageForServer(MESSAGE_TYPE.PING, 'Hi this is web client.'));
+    sendDataOverSocket(getMessageForServer(MESSAGE_TYPE.PING, 'Hi this is web client.'));
 };
+
+ws.onerror = function(e){
+    appLog(`Error in web socket ${e}`);
+    appLog(`${JSON.stringify(e)}`);
+}
 
 ws.onmessage = function (e) {
     let receivedData = JSON.parse(e.data);
@@ -22,11 +27,33 @@ ws.onmessage = function (e) {
     }
 };
 
-function publish(data) {
-    ws.send(getMessageForServer(MESSAGE_TYPE.DRAW,
+function publish(data, callBack) {
+    sendDataOverSocket(getMessageForServer(MESSAGE_TYPE.DRAW,
         {
             drawing: data,
             board: JSON.parse(localStorage.getItem('board'))
         })
-    );
+        , callBack);
+}
+
+this.sendDataOverSocket = (message, callback) => {
+    this.waitForConnection(function () {
+        ws.send(message);
+        if (typeof callback !== 'undefined') {
+            callback();
+        }
+    }, 1000);
+}
+
+this.waitForConnection = (callback, interval) => {
+    appLog(`Trying to send data 🙃`);
+    if (ws.readyState === 1) {
+        callback();
+    } else {
+        var that = this;
+        // optional: implement backoff for interval here
+        setTimeout(function () {
+            that.waitForConnection(callback, interval);
+        }, interval);
+    }
 }
