@@ -19,7 +19,7 @@
   "homepage": "https://github.com/MrHmP/shared-whiteboard#readme",
   "dependencies": {
     "http-server": "^0.12.3",
-    "nanoid": "^3.1.10",
+    "nanoid": "^3.1.31",
     "websocket": "^1.0.31"
   },
   "devDependencies": {
